@@ -1,46 +1,27 @@
-<html>
- <head>
-  <title>Hello...</title>
+<!-- <?php
+  echo '<h1>Yeah, it works!<h1>';
+	//phpinfo();
+?> -->
 
-  <meta charset="utf-8"> 
+<?php
+//These are the defined authentication environment in the db service
+$request_uri = $_SERVER['REQUEST_URI'];
 
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+if($request_uri == "/"){	echo "<script>location.href = './views/index.php'</script> "; }
+// // The MySQL service named in the docker-compose.yml.
+// $host = 'localhost:40000';
 
-</head>
-<body>
-    <div class="container">
-    <?php echo "<h1>Hi! I'm happy</h1>"; ?>
+// // Database use name
+// $user = 'root';
 
-    <?php
+// //database user password
+// $pass = '9080';
 
-    // Connexion et sélection de la base
-    $conn = mysqli_connect('db', 'user', 'test', "myDb");
-
-
-    $query = 'SELECT * From Person';
-    $result = mysqli_query($conn, $query);
-
-    echo '<table class="table table-striped">';
-    echo '<thead><tr><th></th><th>id</th><th>name</th></tr></thead>';
-    while($value = $result->fetch_array(MYSQLI_ASSOC)){
-        echo '<tr>';
-        echo '<td><a href="#"><span class="glyphicon glyphicon-search"></span></a></td>';
-        foreach($value as $element){
-            echo '<td>' . $element . '</td>';
-        }
-
-        echo '</tr>';
-    }
-    echo '</table>';
-
-    /* Libération du jeu de résultats */
-    $result->close();
-
-    mysqli_close($conn);
-
-    ?>
-    </div>
-</body>
-</html>
+// // check the MySQL connection status
+// $conn = new mysqli($host, $user, $pass);
+// if ($conn->connect_error) {
+//     die("Connection failed: " . $conn->connect_error);
+// } else {
+//     echo "Connected to MySQL server successfully!";
+// }
+?>

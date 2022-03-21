@@ -1,40 +1,48 @@
 version: "3.1"
 services:
     www:
+        image: diorcokorea/dentone
+        container_name: dentone
         build: .
-        ports: 
-            - "8001:80"
+        ports:
+            - "8000:80"
         volumes:
             - ./www:/var/www/html/
         links:
-            - db
+            - mariadb
         networks:
-            - default
-    db:
-        image: mysql:8.0
-        ports: 
-            - "3306:3306"
-        command: --default-authentication-plugin=mysql_native_password
+            - dentnet
+    mariadb:
+        image: mariadb:10.6
+        container_name: mariadb
+        ports:
+            - "40000:3306"
+        command: --lower_case_table_names=1
         environment:
-            MYSQL_DATABASE: myDb
-            MYSQL_USER: user
-            MYSQL_PASSWORD: test
-            MYSQL_ROOT_PASSWORD: test 
+            MYSQL_DATABASE: aligner
+            MYSQL_USER: root
+            MYSQL_PASSWORD: 9080
+            MYSQL_ROOT_PASSWORD: root
         volumes:
             - ./dump:/docker-entrypoint-initdb.d
             - ./conf:/etc/mysql/conf.d
-            - persistent:/var/lib/mysql
+            - maria-data:/var/lib/mysql
         networks:
-            - default
-    phpmyadmin:
-        image: phpmyadmin/phpmyadmin
-        links: 
-            - db:db
-        ports:
-            - 8000:80
-        environment:
-            MYSQL_USER: user
-            MYSQL_PASSWORD: test
-            MYSQL_ROOT_PASSWORD: test 
+            - dentnet
+    # phpmyadmin:
+    #     image: phpmyadmin/phpmyadmin
+    #     links: 
+    #         - db:db
+    #     ports:
+    #         - 8000:80
+    #     environment:
+    #         MYSQL_USER: user
+    #         MYSQL_PASSWORD: test
+    #         MYSQL_ROOT_PASSWORD: test 
 volumes:
-    persistent:
+    maria-data:
+        name: maria-data
+networks:
+    dentnet:
+        driver: bridge
+        name: dentnet
