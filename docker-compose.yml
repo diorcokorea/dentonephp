@@ -5,7 +5,7 @@ services:
         container_name: dentone
         build: .
         ports:
-            - "80:80"
+            - "8000:80"
         # volumes:
         #     - ./www:/var/www/html/
         links:
@@ -26,6 +26,7 @@ services:
         volumes:
             - ./dump:/docker-entrypoint-initdb.d
             - ./conf:/etc/mysql/conf.d
+            - ./conf:/etc
             - maria-data:/var/lib/mysql
         networks:
             - dentnet
