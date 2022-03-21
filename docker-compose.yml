@@ -5,9 +5,9 @@ services:
         container_name: dentone
         build: .
         ports:
-            - "8000:80"
-        volumes:
-            - ./www:/var/www/html/
+            - "80:80"
+        # volumes:
+        #     - ./www:/var/www/html/
         links:
             - mariadb
         networks:
