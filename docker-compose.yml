@@ -1,49 +1,59 @@
 version: "3.1"
 services:
-    www:
-        image: diorcokorea/dentone
-        container_name: dentone
-        build: .
-        ports:
-            - "8000:80"
-        # volumes:
-        #     - ./www:/var/www/html/
-        links:
-            - mariadb
-        networks:
-            - dentnet
-    mariadb:
-        image: mariadb:10.6
-        container_name: mariadb
-        ports:
-            - "40000:3306"
-        command: --lower_case_table_names=1
-        environment:
-            MYSQL_DATABASE: aligner
-            MYSQL_USER: root
-            MYSQL_PASSWORD: 9080
-            MYSQL_ROOT_PASSWORD: root
-        volumes:
-            - ./dump:/docker-entrypoint-initdb.d
-            - ./conf:/etc/mysql/conf.d
-            - ./conf:/etc
-            - maria-data:/var/lib/mysql
-        networks:
-            - dentnet
-    # phpmyadmin:
-    #     image: phpmyadmin/phpmyadmin
-    #     links: 
-    #         - db:db
-    #     ports:
-    #         - 8000:80
-    #     environment:
-    #         MYSQL_USER: user
-    #         MYSQL_PASSWORD: test
-    #         MYSQL_ROOT_PASSWORD: test 
-volumes:
-    maria-data:
-        name: maria-data
+  www:
+    image: diorcokorea/dentone
+    container_name: dentone
+    build: .
+    ports:
+      - "80:80"
+    volumes:
+      - ./www:/var/www/html/
+    # links:
+    #     - mariadb
+    environment:
+      # --docker와 연결할 경우
+      # - DB_HOST=mariadb
+      # --local mariadb와 연결할 경우
+      - DB_HOST=dioseoul.cea0ixlb7gt0.ap-northeast-2.rds.amazonaws.com
+      - DB_USER=admin
+      - DB_PASSWORD=diorco2014
+      - DB_NAME=aligner_new
+      - DB_PORT=3306
+      # - DB_PORT=$MYSQLDB_DOCKER_PORT
+    networks:
+      - dentnet
+  # mariadb:
+  #     image: mariadb:10.6
+  #     container_name: mariadb
+  #     ports:
+  #         - "40000:3306"
+  #     command: --lower_case_table_names=1
+  #     environment:
+  #         MYSQL_DATABASE: aligner
+  #         MYSQL_USER: root
+  #         MYSQL_PASSWORD: 9080
+  #         MYSQL_ROOT_PASSWORD: root
+  #     volumes:
+  #         - ./dump:/docker-entrypoint-initdb.d
+  #         - ./conf:/etc/mysql/conf.d
+  #         - ./conf/my.conf:/etc/mysql
+  #         - maria-data:/var/lib/mysql
+  #     networks:
+  #         - dentnet
+  # phpmyadmin:
+  #     image: phpmyadmin/phpmyadmin
+  #     links:
+  #         - db:db
+  #     ports:
+  #         - 8000:80
+  #     environment:
+  #         MYSQL_USER: user
+  #         MYSQL_PASSWORD: test
+  #         MYSQL_ROOT_PASSWORD: test
+# volumes:
+#     maria-data:
+#         name: maria-data
 networks:
-    dentnet:
-        driver: bridge
-        name: dentnet
+  dentnet:
+    driver: bridge
+    name: dentnet

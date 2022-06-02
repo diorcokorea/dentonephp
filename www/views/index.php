@@ -26,6 +26,7 @@ $config['cf_title'] = "Dent One";
 
 include_once('inc/head.php');
 
+
 include_once('../viewmodels/indexList.php');
 
 ?>

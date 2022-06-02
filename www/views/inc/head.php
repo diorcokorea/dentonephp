@@ -181,7 +181,7 @@ include_once($_SERVER["DOCUMENT_ROOT"] . "/models/db/querys.php");
                             <li>
                                 <a href="javascript:notiUpdate(${item.service_id}, ${item.alarm_id});">
                                     <p class="noti_icon" style="float:left;"></p>
-                                    <p class="noti_text" style="float:right; width:484px;">
+                                    <p class="noti_text" style="float:right; width:484px;">      111
                                         ${item.TIME_STAMP} ${item.full_name.replace("[]", item.patient_name.replace(",", " "))}
                                     </p>
                                 </a>

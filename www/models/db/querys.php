@@ -1115,6 +1115,8 @@
     #region 환자 목록 조회
     function patientlist_r($seach, $pageno, $sortcol, $descasc, $loginid, $fromdata, $todate, $smsg)
     {
+        echo "search:".$seach." pageno:". $pageno." sortcol:".$sortcol." desasc:".$descasc." loginid:". $loginid." fromdata: ". $fromdata."todate: ". $todate."chkhan: ". $chkhan." result is empty";
+
         try {
             $chkhan = '';
             if(checkhangul($smsg) == 1)
@@ -1181,7 +1183,6 @@
             }
         }
         else{
-echo "search".$seach."pageno". $pageno."sortcol".$sortcol."desasc".$descasc."loginid". $loginid."fromdata". $fromdata."todate". $todate."chkhan". $chkhan."result is empty";
 }
             return $tmpArray;
 
